@@ -24,16 +24,16 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
     }
 
     private fun speak(){
-        var message: String = findViewById<TextView>(R.id.textView).text.toString()
+        var message: String = findViewById<TextView>(R.id.tvStatus).text.toString()
         tts!!.speak(message, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS){
-            findViewById<TextView>(R.id.textView).text = "Listo!"
+            findViewById<TextView>(R.id.tvStatus).text = "Listo!"
             tts!!.setLanguage(Locale.US)
         } else {
-            findViewById<TextView>(R.id.textView).text = "No disponible :("
+            findViewById<TextView>(R.id.tvStatus).text = "No disponible :("
         }
     }
 }
