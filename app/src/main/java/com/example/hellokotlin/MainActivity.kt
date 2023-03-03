@@ -25,6 +25,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     private fun speak(){
         var message: String = findViewById<TextView>(R.id.etMessage).text.toString()
+
+        if (message.isEmpty()){
+            findViewById<TextView>(R.id.tvStatus).text = "Ingresa un mensaje"
+            message = "Es neta pa ? escribe un mensaje"
+        }
+
         tts!!.speak(message, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
@@ -35,5 +41,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         } else {
             findViewById<TextView>(R.id.tvStatus).text = "No disponible :("
         }
+    }
+
+    override fun onDestroy() {
+        if (tts != null){
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+        super.onDestroy()
     }
 }
