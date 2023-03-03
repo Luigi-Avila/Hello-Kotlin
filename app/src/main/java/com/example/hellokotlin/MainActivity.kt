@@ -9,7 +9,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
-    var tts: TextToSpeech? = null
+    private var tts: TextToSpeech? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         var message: String = findViewById<TextView>(R.id.etMessage).text.toString()
 
         if (message.isEmpty()){
-            findViewById<TextView>(R.id.tvStatus).text = "Ingresa un mensaje"
+            findViewById<TextView>(R.id.tvStatus).text = getString(R.string.text_message_empty)
             message = "Es neta pa ? escribe un mensaje"
         }
 
@@ -36,10 +36,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS){
-            findViewById<TextView>(R.id.tvStatus).text = "Listo!"
-            tts!!.setLanguage(Locale("ES"))
+            findViewById<TextView>(R.id.tvStatus).text = getString(R.string.tts_active)
+            tts!!.language = Locale("ES")
         } else {
-            findViewById<TextView>(R.id.tvStatus).text = "No disponible :("
+            findViewById<TextView>(R.id.tvStatus).text = getString(R.string.tts_no_active)
         }
     }
 
